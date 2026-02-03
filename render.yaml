@@ -3,6 +3,7 @@ services:
   - type: web
     name: synthetic-data-backend
     env: python
+    plan: free
     rootDir: backend
     buildCommand: pip install -r requirements.txt
     startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
@@ -14,6 +15,7 @@ services:
   - type: web
     name: synthetic-data-frontend
     env: static
+    plan: free
     rootDir: .
     buildCommand: npm install && npm run build
     staticPublishPath: dist
