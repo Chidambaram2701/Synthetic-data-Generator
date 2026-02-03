@@ -1,4 +1,5 @@
-export const API_BASE_URL = 'http://localhost:5000/api'; // Adjust port if needed
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+export const API_BASE_URL = `${API_URL}/api`;
 
 export async function uploadDataset(file) {
     const formData = new FormData();
