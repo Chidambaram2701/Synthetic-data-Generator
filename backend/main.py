@@ -65,6 +65,15 @@ async def upload_file(file: UploadFile = File(...)):
 @app.post("/api/train")
 async def train_model(request: TrainRequest):
     global last_uploaded_file
+    
+    # Robustness: If variable lost (restart), check directory
+    if not last_uploaded_file or not os.path.exists(last_uploaded_file):
+        from utils.file_manager import list_uploads, get_upload_path
+        uploads = list_uploads()
+        if uploads:
+            # Pick the most recent one or just the first one
+            last_uploaded_file = get_upload_path(uploads[-1])
+            
     if not last_uploaded_file or not os.path.exists(last_uploaded_file):
         raise HTTPException(status_code=400, detail="No dataset uploaded. Please upload a CSV first.")
     

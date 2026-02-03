@@ -14,7 +14,8 @@ export async function uploadDataset(file) {
     });
 
     if (!response.ok) {
-        throw new Error('Upload failed');
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.detail || 'Upload failed');
     }
     return response.json();
 }
@@ -27,7 +28,8 @@ export async function trainModel(settings) {
     });
 
     if (!response.ok) {
-        throw new Error('Training failed');
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.detail || 'Training failed');
     }
     return response.json();
 }
@@ -40,7 +42,8 @@ export async function generateData(numRows) {
     });
 
     if (!response.ok) {
-        throw new Error('Generation failed');
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.detail || 'Generation failed');
     }
     return response.json();
 }

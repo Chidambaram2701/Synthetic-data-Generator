@@ -83,7 +83,7 @@ function App() {
         } catch (err) {
             console.error(err);
             setStatus('error');
-            setStatusMessage('Training failed. Check backend logs.');
+            setStatusMessage(err.message || 'Training failed. Check backend logs.');
         }
     };
 
