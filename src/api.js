@@ -55,3 +55,13 @@ export function getSyntheticDownloadUrl() {
 export function getModelDownloadUrl() {
     return `${API_BASE_URL}/download/model`;
 }
+
+export async function checkBackendHealth() {
+    try {
+        const response = await fetch(`${API_BASE_URL}/health`);
+        return response.ok;
+    } catch (e) {
+        console.error("Health check failed:", e);
+        return false;
+    }
+}

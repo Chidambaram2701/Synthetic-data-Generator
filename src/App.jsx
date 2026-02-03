@@ -112,8 +112,26 @@ function App() {
         }
     };
 
+    // Debugging Connection
+    const [stats, setStats] = useState({ connected: false, url: '' });
+
+    React.useEffect(() => {
+        import('./api').then(module => {
+            const url = module.API_BASE_URL;
+            setStats(prev => ({ ...prev, url }));
+            module.checkBackendHealth().then(isHealthy => {
+                setStats(prev => ({ ...prev, connected: isHealthy }));
+            });
+        });
+    }, []);
+
     return (
         <div className="min-h-screen bg-slate-50 text-slate-900 font-sans pb-20">
+            {/* Debug Banner - Remove in production */}
+            <div className={`px-4 py-2 text-xs font-mono text-center text-white ${stats.connected ? 'bg-emerald-500' : 'bg-rose-500'}`}>
+                Status: {stats.connected ? 'Connected' : 'Disconnected'} | API: {stats.url}
+            </div>
+
             {/* Header */}
             <header className="bg-white border-b border-slate-200 sticky top-0 z-10">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">

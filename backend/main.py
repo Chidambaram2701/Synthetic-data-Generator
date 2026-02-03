@@ -110,6 +110,14 @@ async def download_model():
         raise HTTPException(status_code=404, detail="Model not found. Please train first.")
     return FileResponse(file_path, filename="ctgan_model.pkl", media_type='application/octet-stream')
 
+@app.get("/")
+def health_check():
+    return {"status": "ok", "message": "Backend is running"}
+
+@app.get("/api/health")
+def api_health_check():
+    return {"status": "ok"}
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
