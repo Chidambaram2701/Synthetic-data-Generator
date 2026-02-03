@@ -10,13 +10,13 @@ services:
       - key: PYTHON_VERSION
         value: 3.10.0
 
-staticSites:
   # Frontend Static Site
-  - name: synthetic-data-frontend
-
+  - type: web
+    name: synthetic-data-frontend
+    env: static
     rootDir: .
     buildCommand: npm install && npm run build
-    publishPath: dist
+    staticPublishPath: dist
     envVars:
       - key: VITE_API_URL
         fromService:
